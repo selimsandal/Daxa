@@ -4,6 +4,8 @@ include("${CMAKE_CURRENT_LIST_DIR}/cmake/warnings.cmake")
 
 project(daxa VERSION 3.0.2)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
+
 if(DAXA_ENABLE_STATIC_ANALYSIS)
     set(CPPCHECK_TEMPLATE "gcc")
     find_program(CPPCHECK cppcheck)
