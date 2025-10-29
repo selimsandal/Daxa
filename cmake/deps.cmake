@@ -70,11 +70,20 @@ endif()
 
 if (DAXA_ENABLE_UTILS_PIPELINE_MANAGER_SLANG AND NOT TARGET slang::slang)
     set(Slang_VERSION "2025.11")
+
+    # Determine platform-specific download URL
+    if(WIN32)
+        set(Slang_URL "https://github.com/shader-slang/slang/releases/download/v${Slang_VERSION}/slang-${Slang_VERSION}-windows-x86_64.zip")
+    elseif(APPLE)
+        set(Slang_URL "https://github.com/shader-slang/slang/releases/download/v${Slang_VERSION}/slang-${Slang_VERSION}-macos-aarch64.zip")
+    else() # Linux
+        set(Slang_URL "https://github.com/shader-slang/slang/releases/download/v${Slang_VERSION}/slang-${Slang_VERSION}-linux-x86_64.tar.gz")
+    endif()
+
     FetchContent_Declare(
-        slang
-        URL https://github.com/shader-slang/slang/releases/download/v${Slang_VERSION}/slang-${Slang_VERSION}-windows-x86_64.zip
-        # URL https://github.com/shader-slang/slang/releases/download/v2025.11/slang-2025.11-windows-x86_64.zip
-        DOWNLOAD_EXTRACT_TIMESTAMP 1
+            slang
+            URL ${Slang_URL}
+            DOWNLOAD_EXTRACT_TIMESTAMP 1
     )
     FetchContent_MakeAvailable(slang)
 
